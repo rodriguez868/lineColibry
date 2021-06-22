@@ -1,0 +1,219 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid" id="listado">
+
+        <!-- Listado de usuarios -->
+
+        <div class="w-100 d-flex justify-content-between align-items-center py-4">
+            <div class="col-md-8">
+                <h4 class="page-title">Tareas Pendientes</h4>
+                <ol class="breadcrumb m-0  p-0 bg-transparent">
+                    <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Tareas Pendientes</li>
+                </ol>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <nav class="d-flex justify-content-end align-items-center border-bottom">
+                    <div class="nav nav-tabs border-0" id="nav-tab" role="tablist">
+                        <button class="nav-link active text-primary" id="nav-creadas-tab" data-bs-toggle="tab" data-bs-target="#nav-creadas" type="button" role="tab" aria-controls="nav-creadas" aria-selected="true">Creados</button>
+                        <button class="nav-link text-primary" id="nav-asignadas-tab" data-bs-toggle="tab" data-bs-target="#nav-asignadas" type="button" role="tab" aria-controls="nav-asignadas" aria-selected="true">Asignadas</button>
+                        <button class="nav-link text-warning" id="nav-proceso-tab" data-bs-toggle="tab" data-bs-target="#nav-proceso" type="button" role="tab" aria-controls="nav-proceso" aria-selected="false">En Proceso/Gestionadas</button>
+                        <button class="nav-link text-danger" id="nav-rechazadas-tab" data-bs-toggle="tab" data-bs-target="#nav-rechazadas" type="button" role="tab" aria-controls="nav-rechazadas" aria-selected="false">Rechazadas</button>
+                        <button class="nav-link text-success" id="nav-finalizadas-tab" data-bs-toggle="tab" data-bs-target="#nav-finalizadas" type="button" role="tab" aria-controls="nav-finalizadas" aria-selected="false">Finalizadas</button>
+                    </div>
+                </nav>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-creadas" role="tabpanel" aria-labelledby="nav-creadas-tab">
+                                <h4 class="text-muted my-2">Ordenes Creadas</h4>
+                                <table class="table table-striped">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Fecha Visita</th>
+                                            <th>Dirección</th>
+                                            <th>Sitio</th>
+                                            <th>Coordinador</th>
+                                            <th>Tecnico</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.Creados)
+                                        {
+                                            <tr>
+                                                <td>@item.Id</td>
+                                                <td>@item.Fecha.Split(' ')[0]</td>
+                                                <td>@item.Direccion</td>
+                                                <td>@item.Sitio</td>
+                                                <td>@item.nm_coordinador</td>
+                                                <td>@item.nm_tecnico</td>
+                                                <td>@item.nm_estado</td>
+                                                <td>
+                                                    <a href="/Admin/Gestionar/@item.Id"> <i class="fas fa-cogs"></i></a>
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade " id="nav-asignadas" role="tabpanel" aria-labelledby="nav-asignadas-tab">
+                                <h4 class="text-muted my-2">Ordenes Asignadas</h4>
+                                <table class="table table-striped">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Fecha Visita</th>
+                                            <th>Dirección</th>
+                                            <th>Sitio</th>
+                                            <th>Coordinador</th>
+                                            <th>Tecnico</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.Asignados)
+                                        {
+                                            <tr>
+                                                <td>@item.Id</td>
+                                                <td>@item.Fecha.Split(' ')[0]</td>
+                                                <td>@item.Direccion</td>
+                                                <td>@item.Sitio</td>
+                                                <td>@item.nm_coordinador</td>
+                                                <td>@item.nm_tecnico</td>
+                                                <td>@item.nm_estado</td>
+                                                <td>
+                                                    <a href="/Admin/Gestionar/@item.Id"> <i class="fas fa-cogs"></i></a>
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="nav-proceso" role="tabpanel" aria-labelledby="nav-proceso-tab">
+                                <h4 class="text-muted my-2">Ordenes en Proceso / Gestionadas</h4>
+                                <table class="table table-striped">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Fecha Visita</th>
+                                            <th>Dirección</th>
+                                            <th>Sitio</th>
+                                            <th>Coordinador</th>
+                                            <th>Tecnico</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.Gestionados)
+                                        {
+                                            <tr>
+                                                <td>@item.Id</td>
+                                                <td>@item.Fecha.Split(' ')[0]</td>
+                                                <td>@item.Direccion</td>
+                                                <td>@item.Sitio</td>
+                                                <td>@item.nm_coordinador</td>
+                                                <td>@item.nm_tecnico</td>
+                                                <td>@item.nm_estado</td>
+                                                <td>
+                                                    <a href="/Admin/Gestionar/@item.Id"> <i class="fas fa-cogs"></i></a>
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="nav-rechazadas" role="tabpanel" aria-labelledby="nav-rechazadas-tab">
+                                <h4 class="text-muted my-2">Ordenes Rechazadas</h4>
+                                <table class="table table-striped">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Fecha Visita</th>
+                                            <th>Dirección</th>
+                                            <th>Sitio</th>
+                                            <th>Coordinador</th>
+                                            <th>Tecnico</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.Rechazados)
+                                        {
+                                            <tr>
+                                                <td>@item.Id</td>
+                                                <td>@item.Fecha.Split(' ')[0]</td>
+                                                <td>@item.Direccion</td>
+                                                <td>@item.Sitio</td>
+                                                <td>@item.nm_coordinador</td>
+                                                <td>@item.nm_tecnico</td>
+                                                <td>@item.nm_estado</td>
+                                                <td>
+                                                    <a href="/Admin/Gestionar/@item.Id"> <i class="fas fa-cogs"></i></a>
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="nav-finalizadas" role="tabpanel" aria-labelledby="nav-finalizadas-tab">
+                                <h4 class="text-muted my-2">Ordenes Finalizadas</h4>
+                                <table class="table table-striped">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Fecha Visita</th>
+                                            <th>Dirección</th>
+                                            <th>Sitio</th>
+                                            <th>Coordinador</th>
+                                            <th>Tecnico</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.Finalizados)
+                                        {
+                                            <tr>
+                                                <td>@item.Id</td>
+                                                <td>@item.Fecha.Split(' ')[0]</td>
+                                                <td>@item.Direccion</td>
+                                                <td>@item.Sitio</td>
+                                                <td>@item.nm_coordinador</td>
+                                                <td>@item.nm_tecnico</td>
+                                                <td>@item.nm_estado</td>
+                                                <td width="20%">
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

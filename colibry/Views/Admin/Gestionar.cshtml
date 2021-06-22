@@ -1,0 +1,409 @@
+﻿@model  colibry.Models.Orden
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="w-100 d-flex justify-content-between align-items-center py-4">
+            <div class="col-md-8">
+                <h4 class="page-title">Gestionar Orden</h4>
+                <ol class="breadcrumb m-0  p-0 bg-transparent">
+                    <li class="breadcrumb-item"><a href="~/Admin/Ordenes">Ordenes</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Gestionar</li>
+                </ol>
+            </div>
+
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <nav class="d-flex justify-content-end align-items-center border-bottom">
+                    <div class="nav nav-tabs border-0" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-detalle-tab" data-bs-toggle="tab" data-bs-target="#nav-detalle" type="button" role="tab" aria-controls="nav-detalle" aria-selected="true">Detalle</button>
+                        <button class="nav-link" id="nav-evidencias-tab" data-bs-toggle="tab" data-bs-target="#nav-evidencias" type="button" role="tab" aria-controls="nav-evidencias" aria-selected="false">Evidencias</button>
+                        <button class="nav-link" id="nav-linebase-tab" data-bs-toggle="tab" data-bs-target="#nav-linebase" type="button" role="tab" aria-controls="nav-linebase" aria-selected="false">Linebase</button>
+                        <button class="nav-link" id="nav-hsq-tab" data-bs-toggle="tab" data-bs-target="#nav-hsq" type="button" role="tab" aria-controls="nav-hsq" aria-selected="false">HSQ</button>
+                    </div>
+
+                    @if (@Context.Session != null)
+                    {
+                        if (@Context.Session["Id_rol"].Equals("4") && Model.Estado.Equals(3))
+                        {
+                            <div>
+                                <a class="btn btn-success" href="~/Admin/Aprobar/@ViewBag.id_orden">Aprobar</a>
+                                <a class="btn btn-danger" href="~/Admin/Rechazar/@ViewBag.id_orden">Rechazar</a>
+                            </div>
+                        }
+                    }
+
+
+                </nav>
+
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-detalle" role="tabpanel" aria-labelledby="nav-detalle-tab">
+
+                                @if (@Context.Session != null)
+                                {
+                                    if (!Context.Session["Id_rol"].Equals("4") && !Context.Session["Id_rol"].Equals("5"))
+                                    {
+                                        <h4 class="text-muted my-2">Asignar Responsables</h4>
+                                        using (Html.BeginForm())
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            <div class="form-group row">
+                                                <div class="col-6">
+                                                    <label for="example-text-input" class="col-sm-12 col-form-label">Asignar Coordinador</label>
+                                                    <div class="col-sm-12">
+                                                        @Html.DropDownList("Id_coordinador", (IEnumerable<SelectListItem>
+                                                            )ViewBag.Coordinador, "Seleccione...", new { @class = "form-control text-capitalize", maxlength = "100", required = "required" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <label for="example-date-input" class="col-sm-12 col-form-label">Asignar Tecnico</label>
+                                                    <div class="col-sm-12">
+                                                        @Html.DropDownList("Id_tecnico", (IEnumerable<SelectListItem>
+                                                            )ViewBag.Tecnico, "Seleccione...", new { @class = "form-control text-capitalize", maxlength = "100", required = "required" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="Estado" value="2" />
+                                            <input type="submit" id="guardar" class="d-none" />
+                                            <hr />
+                                        }
+                                    }
+                                }
+
+
+
+
+                                <h4 class="text-muted my-2">Detalles Orden</h4>
+                                @if (@Context.Session["Id_rol"].Equals("4") || @Context.Session["Id_rol"].Equals("5"))
+                                {
+                                    <div class="form-group row">
+                                        <div class="col-6">
+                                            <label for="example-text-input" class="col-sm-12 col-form-label">Coordinador Responsable</label>
+                                            <div class="col-sm-12">
+                                                <span class="form-control">@ViewBag.Orden.nm_coordinador</span>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="example-date-input" class="col-sm-12 col-form-label">Tecnico Responsable</label>
+                                            <div class="col-sm-12">
+                                                <span class="form-control">@ViewBag.Orden.nm_tecnico</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="form-group row">
+                                    <div class="col-6">
+                                        <label for="example-text-input" class="col-sm-12 col-form-label">Sitio</label>
+                                        <div class="col-sm-12">
+                                            <span class="form-control">@ViewBag.Orden.Sitio</span>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="example-date-input" class="col-sm-12 col-form-label">Fecha Visita</label>
+                                        <div class="col-sm-12">
+                                            <span class="form-control">@ViewBag.Orden.Fecha.Split(' ')[0]</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-6">
+                                        <label for="example-number-input" class="col-sm-12 col-form-label">Coord. Latitud</label>
+                                        <div class="col-sm-12">
+                                            <span class="form-control">@ViewBag.Orden.Latitud</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="example-number-input" class="col-sm-12 col-form-label">Coord. Longitud</label>
+                                        <div class="col-sm-12">
+                                            <span class="form-control">@ViewBag.Orden.Longitud</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-6">
+                                        <label for="example-number-input" class="col-sm-12 col-form-label">Altura Nivel Mar</label>
+                                        <div class="col-sm-12">
+                                            <span class="form-control">@ViewBag.Orden.Nivel_mar</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="example-number-input" class="col-sm-12 col-form-label">Altura Torre</label>
+                                        <div class="col-sm-12">
+                                            <span class="form-control">@ViewBag.Orden.Altura</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-6">
+                                        <label for="example-text-input" class="col-sm-12 col-form-label">Dirección</label>
+                                        <div class="col-sm-12">
+                                            <span class="form-control">@ViewBag.Orden.Direccion</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="col-sm-12 col-form-label">Tipo torre</label>
+                                        <span class="form-control">@ViewBag.Orden.nm_tipo_torre</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-6">
+                                        <label class="col-sm-12 col-form-label">Forma ingreso</label>
+                                        <span class="form-control">@ViewBag.Orden.nm_tipo_ingreso</span>
+
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="col-sm-12 col-form-label">Estado</label>
+                                        <span class="form-control">@ViewBag.Orden.nm_estado</span>
+                                    </div>
+                                </div>
+                                <div class="w-100">
+                                    <label class="col-sm-12 col-form-label">Trabajo a realizar</label>
+                                    <div class="col-sm-12">
+                                        <span class="form-control">@ViewBag.Orden.Actividad</span>
+                                    </div>
+                                </div>
+
+                                @if (@Context.Session != null)
+                                {
+                                    if (!Context.Session["Id_rol"].Equals("4") && !Context.Session["Id_rol"].Equals("5"))
+                                    {
+
+                                        <div class="form-group d-flex justify-content-center align-items-center mt-5">
+
+                                            <label for="guardar" class="btn btn-success">Guardar</label>
+                                        </div>
+                                    }
+                                }
+
+
+
+                            </div>
+
+                            <div class="tab-pane fade" id="nav-evidencias">
+
+                                @if (@Context.Session != null)
+                                {
+                                    if (!Context.Session["Id_rol"].Equals("4"))
+                                    {<h4 class="text-muted my-2">Diligenciar Evidencia</h4>
+                                        <div class="w-100 border-bottom pt-2 pb-4">
+
+                                            @using (Html.BeginForm("Evidencia", "Admin", FormMethod.Post, new { encType = "multipart/form-data" }))
+                                            {
+                                            <input type="hidden" name="Id" value="@ViewBag.id_orden" />
+                                            <input type="hidden" name="Tipo" value="1" />
+                                            <input type="file" name="files" multiple accept="image/*" required />
+                                            <button type="submit" class="btn btn-success">Adjuntar</button>
+                                            }
+                                        </div>
+                                    }
+                                }
+
+
+                                <div class="w-100 py-2">
+                                    <h4 class="text-muted my-2">Evidencias Adjuntas</h4>
+                                    <div class="d-flex justify-content-around align-items-center  flex-wrap">
+
+                                        @foreach (var item in ViewBag.Evidencias)
+                                        {
+                                            <div class="image-container d-flex justify-content-center flex-column">
+                                                <a href="#">borrar</a>
+                                                <img src="@Url.Content(item.Ruta)" alt="Evidencia" title="Nombre: @item.Nombre, Tamaño: @item.Tamano " />
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="nav-linebase" role="tabpanel" aria-labelledby="nav-linebase-tab">
+                                <h4 class="text-muted my-2">LineBase</h4>
+                                <div>
+                                    @if (@Context.Session != null)
+                                    {
+                                        if (!Context.Session["Id_rol"].Equals("4"))
+                                        {
+                                            <form action="/Admin/Lineabase" method="post">
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                                <input type="hidden" name="Id_orden" value="@ViewBag.id_orden" />
+                                                <input type="hidden" name="Nm_sector" value="" id="nm_sector" />
+                                                <input type="hidden" name="Nm_item" value="" id="nm_item" />
+                                                <div class="w-100 d-flex justify-content-between align-items-center">
+                                                    <label>
+                                                        Tipo Datos:
+                                                        <select class="form-control" name="Id_tipo_datos">
+                                                            <option value="">Seleccione..</option>
+                                                            <option value="1">Datos UMTS 850</option>
+                                                            <option value="2">Datos UMTS 1900</option>
+                                                        </select>
+                                                    </label>
+                                                    <label>
+                                                        Sector:
+                                                        <select class="form-control" name="Id_sector" id="Id_sector">
+                                                            <option value="">Seleccione..</option>
+                                                            <option value="1">Sector X</option>
+                                                            <option value="2">Sector Y</option>
+                                                            <option value="3">Sector Z</option>
+                                                            <option value="4">Sector U</option>
+                                                            <option value="5">Sector V</option>
+                                                            <option value="6">Sector W</option>
+                                                        </select>
+                                                    </label>
+
+                                                    <label>
+                                                        Item:
+                                                        <select class="form-control" name="Id_item" id="Id_item">
+                                                            <option value="">Seleccione..</option>
+                                                            <option value="1">Tipo Antena</option>
+                                                            <option value="2">Modelo Antena</option>
+                                                            <option value="3">Azimuth</option>
+                                                            <option value="4">Altura</option>
+                                                            <option value="5">Tilt Electrico</option>
+                                                            <option value="6">Tilt Mecanico</option>
+                                                            <option value="7">Twist</option>
+                                                            <option value="8">Estado Tilt Electrico</option>
+                                                            <option value="9">Estado Tilt Mecanico</option>
+                                                            <option value="10">Proveedor</option>
+                                                        </select>
+                                                    </label>
+                                                    <label>
+                                                        Valor Antes:
+                                                        <input type="text" name="Antes" value="" class="form-control" />
+                                                    </label>
+                                                    <label>
+                                                        Valor Despues:
+                                                        <input type="text" name="Despues" value="" class="form-control" />
+                                                    </label>
+                                                    <input type="submit" value="Enviar" class="btn btn-success" />
+                                                </div>
+
+                                            </form>
+                                        }
+                                    }
+                                        </div>
+                                <div class="mt-4">
+                                    <nav>
+                                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                            <button class="nav-link active" id="nav-ocho-tab" data-bs-toggle="tab" data-bs-target="#nav-ocho" type="button" role="tab" aria-controls="nav-ocho" aria-selected="true">UMTS 850</button>
+                                            <button class="nav-link" id="nav-mill-tab" data-bs-toggle="tab" data-bs-target="#nav-mil" type="button" role="tab" aria-controls="nav-mil" aria-selected="false">UMTS 1800</button>
+                                        </div>
+                                    </nav>
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="nav-ocho" role="tabpanel" aria-labelledby="nav-ocho-tab">
+                                            <h5 class="text-muted my-2">Datos UMTS 850</h5>
+                                            <div class="my-2">
+                                                <table class="table table-striped table-hover">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <td width="20%">Sector</td>
+                                                            <td width="20%">Item</td>
+                                                            <td>Antes</td>
+                                                            <td>Despues</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in ViewBag.Lineabase1)
+                                                        {
+                                                            <tr colspan="2">
+                                                                <td>  @item.Nm_sector</td>
+                                                                <td>  @item.Nm_item</td>
+                                                                <td>  @item.Antes</td>
+                                                                <td>  @item.Despues</td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="nav-mil" role="tabpanel" aria-labelledby="nav-mil-tab">
+                                            <h5 class="text-muted my-2">Datos UMTS 1800</h5>
+                                            <div class="my-2">
+                                                <table class="table table-striped table-hover">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <td width="20%">Sector</td>
+                                                            <td width="20%">Item</td>
+                                                            <td>Antes</td>
+                                                            <td>Despues</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in ViewBag.Lineabase2)
+                                                        {
+                                                            <tr colspan="2">
+                                                                <td>  @item.Nm_sector</td>
+                                                                <td>  @item.Nm_item</td>
+                                                                <td>  @item.Antes</td>
+                                                                <td>  @item.Despues</td>
+                                                            </tr>
+                                                        }
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="nav-hsq" role="tabpanel" aria-labelledby="nav-hsq-tab">
+
+                                @if (@Context.Session != null)
+                                {
+                                    if (!Context.Session["Id_rol"].Equals("4"))
+                                    {
+                                        <h4 class="text-muted my-2">Diligenciar HSQ</h4>
+                                        <div class="w-100 border-bottom pt-2 pb-4">
+
+                                            @using (Html.BeginForm("Evidencia", "Admin", FormMethod.Post, new { encType = "multipart/form-data" }))
+                                            {
+                                            <input type="hidden" name="Id" value="@ViewBag.id_orden" />
+                                            <input type="hidden" name="Tipo" value="2" />
+                                            <input type="file" name="files" multiple accept="image/*" required />
+                                            <button type="submit" class="btn btn-success">Adjuntar</button>
+                                            }
+                                        </div>
+                                    }
+                                }
+
+
+                                <div class="w-100 py-2">
+                                    <h4 class="text-muted my-2">HSQs Adjuntos</h4>
+                                    <div class="d-flex justify-content-around align-items-center  flex-wrap">
+
+                                        @foreach (var item in ViewBag.HSQs)
+                                        {
+                                            <div class="image-container d-flex justify-content-center flex-column">
+                                                <img src="@Url.Content(item.Ruta)" alt="Evidencia" title="Nombre: @item.Nombre, Tamaño: @item.Tamano " />
+
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>

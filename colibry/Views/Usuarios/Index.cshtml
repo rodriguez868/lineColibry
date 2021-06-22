@@ -1,0 +1,43 @@
+﻿@model IEnumerable<colibry.Models.Usuario>
+
+@{
+    Layout = null;
+}
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Usuario</th>
+            <th>Clave</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Apellido)</td>
+                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                <td>@Html.DisplayFor(modelItem => item.Username)</td>
+                <td>@Html.DisplayFor(modelItem => item.Password)</td>
+                <td>@Html.DisplayFor(modelItem => item.Id_rol)</td>
+                <td>@Html.DisplayFor(modelItem => item.Estado)</td>
+                <td>
+                    @Html.ActionLink("Editar", "Usuario", new { id = item.Id }, new { @class = "btn btn-link" })
+                    <form action="~/Home/BorrarUsuario/@Html.DisplayFor(modelItem => item.Id)" method="post">
+                        <input type="hidden" name="Id" value="@Html.DisplayFor(modelItem => item.Id)" />
+                        <input type="hidden" name="Estado" value="-1" />
+                        <button type="submit" class="btn btn-link text-danger">Eliminar</button>
+                    </form>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

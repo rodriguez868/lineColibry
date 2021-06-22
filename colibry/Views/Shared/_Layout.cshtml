@@ -1,0 +1,171 @@
+﻿<!doctype html>
+<html lang="zxx">
+
+<!-- Mirrored from templates.envytheme.com/finix/default/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 23 Jul 2020 10:02:48 GMT -->
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="~/assets/css/animate.css">
+    <!-- Meanmenu CSS -->
+    <link rel="stylesheet" href="~/assets/css/meanmenu.css">
+    <!-- Boxicons CSS -->
+    <link rel="stylesheet" href="~/assets/css/boxicons.min.css">
+    <!-- Flaticon CSS -->
+    <link rel="stylesheet" href="~/assets/css/flaticon.css">
+    <!-- Carousel CSS -->
+    <link rel="stylesheet" href="~/assets/css/owl.carousel.min.css">
+    <!-- Carousel Default CSS -->
+    <link rel="stylesheet" href="~/assets/css/owl.theme.default.min.css">
+    <!-- Carousel Default CSS -->
+    <link rel="stylesheet" href="~/assets/css/owl.theme.default.min.css">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="~/assets/css/nice-select.css">
+    <!-- Odometer CSS -->
+    <link rel="stylesheet" href="~/assets/css/odometer.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/assets/css/responsive.css">
+
+    <title>LineColibry</title>
+
+    <link rel="icon" type="image/png" href="~/assets/img/LineColibry/coli.png">
+</head>
+
+<body>
+    <!-- Start Navbar Area -->
+    <div class="navbar-area">
+        <div class="main-responsive-nav">
+            <div class="container">
+                <div class="main-responsive-menu">
+                    <div class="logo">
+                        <a href="/">
+                            <img src="~/assets/img/LineColibry/Tipografia_03.png" alt="image">
+                            <a href="#" class="nav-link active">
+                            </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-navbar">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-md navbar-light">
+                    <a class="navbar-brand" href="/">
+                        <img src="~/assets/img/LineColibry/Tipografia_03.png" alt="image">
+                    </a>
+                    <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a href="/" class="nav-link active">
+                                    <i>Inicio</i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i>LineColibry</i>
+                                    <i class='bx bx-chevron-down'></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <a href="~/Home/Servicios" class="nav-link">
+                                            Servicios
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="~/Home/Ayuda" class="nav-link">
+                                            Preguntas Frecuentes
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="~/Home/Contactos" class="nav-link">
+                                            Contactos
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="~/Home/Terminos" class="nav-link">
+                                            Términos y Condiciones
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="~/Home/Funciones" class="nav-link">
+                                    <i>Funciones</i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="~/Home/Ventajas" class="nav-link">
+                                    <i>Ventajas</i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="~/Home/Contactos" class="nav-link">
+                                    <i>Contacto</i>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="others-options d-flex align-items-center">
+                            <div class="option-item">
+                                <i class="search-btn flaticon-magnifying-glass"></i>
+                                <i class="close-btn flaticon-close"></i>
+                                <div class="search-overlay search-popup">
+                                    <div class='search-box'>
+                                        <form class="search-form">
+                                            <input class="search-input" name="search" placeholder="Search" type="text">
+
+                                            <button class="search-button" type="submit">
+                                                <i class="flaticon-magnifying-glass"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="option-item">
+                                <div class="info">
+                                    <i class="flaticon-telephone"></i>
+                                    <span>Llamanos</span>
+                                    <p>
+                                        <a href="tel:1514312-5678">(+57) 3129315678</a>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="option-item">
+                                <a href="~/Login" class="default-btn">
+                                    Iniciar Sesion
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- End Navbar Area -->
+
+    
+    <div class="w-100 body-content" >
+        @RenderBody()
+        <hr class="my-1"/>
+        <footer class="py-2 px-5">
+            <p>
+                &copy; @DateTime.Now.Year -
+                <a href="#">
+                    LineColibry
+                </a>
+            </p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

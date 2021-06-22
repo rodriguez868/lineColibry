@@ -1,0 +1,112 @@
+﻿@model  colibry.Models.Orden
+@{
+    ViewBag.Title = "Orden";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Orden</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="row">
+        <div class="col-12">
+            <button type="submit">Enviar</button>
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label for="example-text-input" class="col-sm-12 col-form-label">Sitio</label>
+                            <div class="col-sm-12">
+                                @Html.TextBoxFor(model => model.Sitio, new { @class = "form-control", maxlength = "100", required = "required" })
+                                @Html.ValidationMessageFor(model => model.Sitio, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="example-date-input" class="col-sm-12 col-form-label">Fecha Visita</label>
+                            <div class="col-sm-12">
+        
+                                 @Html.TextBoxFor(model => model.Fecha,  new { @class = "form-control", type="date",maxlength = "100", required = "required" })
+                                @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label for="example-number-input" class="col-sm-12 col-form-label">Coord. Latitud</label>
+                            <div class="col-sm-12">
+                                @Html.TextBoxFor(model => model.Latitud, new { @class = "form-control", maxlength = "100", required = "required" })
+                                @Html.ValidationMessageFor(model => model.Latitud, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="example-number-input" class="col-sm-12 col-form-label">Coord. Longitud</label>
+                            <div class="col-sm-12">
+
+                                @Html.TextBoxFor(model => model.Longitud, new { @class = "form-control",  maxlength = "100", required = "required" })
+                                @Html.ValidationMessageFor(model => model.Longitud, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label for="example-number-input" class="col-sm-12 col-form-label">Altura Nivel Mar</label>
+                            <div class="col-sm-12">
+                                @Html.TextBoxFor(model => model.Nivel_mar, new { @class = "form-control", Type = "number", maxlength = "100", required = "required" })
+                                @Html.ValidationMessageFor(model => model.Nivel_mar, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="example-number-input" class="col-sm-12 col-form-label">Altura Torre</label>
+                            <div class="col-sm-12">
+                                @Html.TextBoxFor(model => model.Altura, new { @class = "form-control", Type = "number", maxlength = "100", required = "required" })
+                                @Html.ValidationMessageFor(model => model.Altura, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label for="example-text-input" class="col-sm-12 col-form-label">Dirección</label>
+                            <div class="col-sm-12">
+                                @Html.TextBoxFor(model => model.Direccion, new { @class = "form-control",  maxlength = "100", required = "required" })
+                                @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label class="col-sm-12 col-form-label">Tipo torre</label>
+                            <div class="col-sm-12">
+                                @Html.TextBoxFor(model => model.Tipo, new { @class = "form-control", maxlength = "100", required = "required" })
+                                @Html.ValidationMessageFor(model => model.Tipo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label class="col-sm-12 col-form-label">Forma ingreso</label>
+                            <div class="col-sm-12">
+                                @Html.TextBoxFor(model => model.Tipo_ingreso, new { @class = "form-control", maxlength = "100", required = "required" })
+                                @Html.ValidationMessageFor(model => model.Tipo_ingreso, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label class="col-sm-12 col-form-label">Trabajo a realizar</label>
+                            <div class="col-sm-12">
+                                @Html.TextAreaFor(model => model.Actividad, new { @class = "form-control", maxlength = "100", required = "required" })
+                                @Html.ValidationMessageFor(model => model.Actividad, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

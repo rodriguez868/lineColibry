@@ -1,0 +1,41 @@
+﻿@model  colibry.Models.Usuario
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class="control-label col-md-2">Nombre</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", maxlength = "100", required = "required" })
+                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Apellido, new { @class = "form-control", maxlength = "100", required = "required" })
+                @Html.ValidationMessageFor(model => model.Apellido, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", Type="Email", maxlength = "100", required = "required" })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Username, new { @class = "form-control", maxlength = "100", required = "required" })
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Id_rol, new { @class = "form-control", maxlength = "100", required = "required" })
+                @Html.ValidationMessageFor(model => model.Id_rol, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Estado, new { @class = "form-control", maxlength = "100", required = "required" })
+                @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
+            </div>
+            <button type="submit">Enviar</button>
+        </div>
+    </div>
+}

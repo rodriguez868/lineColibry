@@ -1,0 +1,221 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <title>Administrador | LineColibry</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description">
+    <meta content="Themesbrand" name="author">
+    <!-- App favicon -->
+    <link rel="icon" type="image/png" href="~/assets/img/LineColibry/coli.png">
+    <link rel="shortcut icon" href="~/assets/img/LineColibry/coli.png">
+
+    <link href="~/assets/libs/chartist/chartist.min.css" rel="stylesheet">
+    <!-- Plugin css -->
+    <!-- Bootstrap Css -->
+    <link href="~/assets/css/bootstrap-dark.min.css" rel="stylesheet" type="text/css">
+    <!-- Icons Css -->
+    <link href="~/assets/css/icons.min.css" rel="stylesheet" type="text/css">
+    <!-- App Css-->
+    <link href="~/assets/css/app.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/css/fullcalendar.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+
+</head>
+<body data-sidebar="dark">
+    <div class="w-100 body-content">
+        <!-- Begin page -->
+        <div id="layout-wrapper">
+            <header id="page-topbar">
+                <div class="navbar-header">
+                    <div class="d-flex">
+                        <!-- LOGO -->
+                        <div class="navbar-brand-box">
+                            <a href="~/Admin" class="logo logo-light">
+                                <span class="logo-sm">
+                                    <img src="~/assets/images/icono.png" alt="" height="40"  >
+                                </span>
+                                <span class="logo-lg">
+                                    <img src="~/assets/img/LineColibry/Tipografia_03.png" alt="" height="40" >
+                                </span>
+                            </a>
+                        </div>
+                        <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect" id="vertical-menu-btn">
+                            <i class="mdi mdi-menu"></i>
+                        </button>
+                        <div class="d-none d-sm-block">
+                            <div class="dropdown pt-3 d-inline-block">
+                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Crear <i class="mdi mdi-chevron-down"></i>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="~/Admin/Orden">Nuevo Servicio</a>
+
+                                    @if (@Context.Session != null)
+                                    {
+                                        if (@Context.Session["Id_rol"].Equals("1") || @Context.Session["Id_rol"].Equals("2"))
+                                        {
+                                            <a class="dropdown-item" href="~/Admin/Usuario">Nuevo Usuario</a>
+                                        }
+                                    }
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="dropdown d-inline-block">
+                            <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="mdi mdi-bell-outline"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
+                                <div class="p-3">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <h5 class="m-0 font-size-16"> Alertas </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-2 border-top">
+                                    <div class="d-grid">
+                                        <a class="btn btn-sm btn-link text-muted font-size-14 text-center" href="javascript:void(0)" disabled>
+                                            Ver Todos
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown d-inline-block">
+                            <button type="button" class="btn header-item waves-effect d-flex justify-content-between align-items-center" id="page-header-user-dropdown"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="px-2">
+                                    <p class=" username text-capitalize m-0">@Context.Session["nombreCompleto"]</p>
+                                    <p class=" rol  text-capitalize m-0">@Context.Session["Rol"]</p>
+                                </div>
+                                <i class="fa fa-user-circle fa-2x"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <!-- item-->
+                                <a class="dropdown-item text-danger" href="~/Login/Logout" ><i class="bx bx-power-off font-size-17 align-middle me-1 text-danger"></i> Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="vertical-menu mm-active">
+                <div data-simplebar="init" class="h-100 mm-show">
+                    <div class="simplebar-wrapper" style="margin: 0px;">
+                        <div class="simplebar-height-auto-observer-wrapper">
+                            <div class="simplebar-height-auto-observer"></div>
+                        </div>
+                        <div class="simplebar-mask">
+                            <div class="simplebar-offset" style="right: -20px; bottom: 0px;">
+                                <div class="simplebar-content-wrapper" style="height: 100%; padding-right: 20px; padding-bottom: 0px; overflow: hidden scroll;">
+                                    <div class="simplebar-content" style="padding: 0px;">
+                                        <!--- Sidemenu -->
+                                        <div id="sidebar-menu" class="mm-active">
+                                            <!-- Left Menu Start -->
+                                            <ul class="metismenu list-unstyled mm-show" id="side-menu">
+                                                <li class="menu-title">Inicio</li>
+                                                <li>
+                                                    <a href="~/Admin" class="waves-effect">
+                                                        <i class="ti-home"></i>
+                                                        <span>Inicio</span>
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="~/Admin/Calendario" class=" waves-effect">
+                                                        <i class="ti-calendar"></i>
+                                                        <span>Calendario</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="~/Admin/Intinerario" class=" waves-effect">
+                                                        <i class="ti-check"></i>
+                                                        <span>Tareas Pendientes</span>
+                                                    </a>
+                                                </li>
+
+
+                                                @if (@Context.Session != null)
+                                                {
+                                                    if (@Context.Session["Id_rol"].Equals("1") || @Context.Session["Id_rol"].Equals("2"))
+                                                    {
+                                                        <li class="menu-title">Ordenes de trabajo</li>
+                                                        <li>
+                                                            <a href="~/Admin/Ordenes" class="waves-effect">
+                                                                <i class="ti-layout-list-thumb"></i>
+                                                                <span>Ordenes</span>
+                                                            </a>
+                                                        </li>
+                                                    }
+                                                }
+                                                <li>
+                                                    @if (@Context.Session != null)
+                                                    {
+                                                        if (@Context.Session["Id_rol"].Equals("1") || @Context.Session["Id_rol"].Equals("2"))
+                                                        {
+                                                        <li class="menu-title">Administracion de Usuarios</li>
+                                                        <li>
+                                                            <a href="~/Admin/Usuarios" class="waves-effect">
+                                                                <i class="ti-user"></i>
+                                                                <span>Usuarios</span>
+                                                            </a>
+                                                        </li>
+                                                    }
+                                                }
+
+                                                </ul>
+                                </div>
+                                        <!-- Sidebar -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div><div class="simplebar-placeholder" style="width: auto; height: 864px;"></div>
+                    </div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="transform: translate3d(0px, 0px, 0px); display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 187px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div>
+                </div>
+            </div>
+
+            <div class="main-content">
+                @RenderBody()
+            </div>
+        </div>
+
+        <!-- JAVASCRIPT -->
+        <script src="~/assets/js/jquery.min.js"></script>
+        <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+        <script src="~/assets/js/metisMenu.min.js"></script>
+        <script src="~/assets/js/simplebar.min.js"></script>
+        <script src="~/assets/js/waves.min.js"></script>
+
+
+        <!-- Peity chart-->
+        <script src="~/assets/js/jquery.peity.min.js"></script>
+
+        <!-- Jquery-Ui -->
+        <script src="~/assets/js/jquery-ui.min.js"></script>
+        <script src="~/assets/js/moment.js"></script>
+        <script src='~/assets/libs/fullcalendar/js/fullcalendar.min.js'></script>
+
+
+
+        <!-- Plugin Js-->
+        <script src="~/assets/js/chartist.min.js"></script>
+        <script src="~/assets/js/chartist-plugin-tooltip.min.js"></script>
+
+        <script src="~/assets/js/dashboard.init.js"></script>
+
+        <script src="~/assets/js/app.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.11/dist/sweetalert2.all.min.js"></script>
+
+
+
+</body>
+</html>

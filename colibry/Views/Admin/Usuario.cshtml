@@ -1,0 +1,126 @@
+﻿@model  colibry.Models.Usuario
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+
+    <div class="page-content">
+        <div class="container-fluid" id="formulario">
+
+            <!-- Listado de usuarios -->
+            <div class="w-100 d-flex justify-content-between align-items-center py-4">
+                <div>
+                    <h4 class="font-size-18">Usuario</h4>
+                    <ol class="breadcrumb m-0  p-0 bg-transparent">
+                        <li class="breadcrumb-item"><a href="~/Admin/Usuarios">Usuarios</a></li>
+                        <li class="breadcrumb-item active">Formulario</li>
+                    </ol>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-horizontal">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group row">
+                                    <div class="col-6">
+                                        <label class="control-label ">Nombre</label>
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control text-capitalize", maxlength = "100", required = "required" }  )
+                                            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="example-date-input" class="col-sm-12 col-form-label">Apellido</label>
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(model => model.Apellido, new { @class = "form-control text-capitalize", maxlength = "100", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.Apellido, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-6">
+                                        <label class="control-label ">Correo Electronico</label>
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", Type = "Email", maxlength = "100", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="example-date-input" class="col-sm-12 col-form-label">Usuario</label>
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(model => model.Username, new { @class = "form-control", maxlength = "100", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-6">
+                                        <label class="control-label ">Contraseña</label>
+                                        <div class="col-md-10">
+                                            @if (Model == null){
+                                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", Type = "password", maxlength = "100", required = "required", value = "", id = "password"})
+                                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                            }else{
+                                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", Type = "password", maxlength = "100", value = "", placeholder = "Ingrese para modificar", id = "password" })
+                                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="example-date-input" class="col-sm-12 col-form-label">Perfil</label>
+                                        <div class="col-md-10">
+                                            @Html.DropDownListFor(model => model.Id_rol,
+                                               new List<SelectListItem>
+                                               {
+                                                   new SelectListItem{Text="Administrador", Value="2"},
+                                                   new SelectListItem { Text = "Coordinador", Value = "3" },
+                                                   new SelectListItem { Text = "Auditor", Value = "4" },
+                                                   new SelectListItem { Text = "Técnico", Value = "5" }
+                                               },
+                                              "Seleccione...", new { @class = "form-control", maxlength = "100"})
+                                            @Html.ValidationMessageFor(model => model.Id_rol, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-6">
+                                        <label class="control-label ">Estado</label>
+                                        <div class="col-md-10">
+                                            @Html.DropDownListFor(model => model.Estado,
+                                               new List<SelectListItem>
+                                               {
+                                                   new SelectListItem{Text="Activo", Value="1"},
+                                                   new SelectListItem { Text = "Inactivo", Value = "0" }},
+                                              "Seleccione...", new { @class = "form-control", maxlength = "100"})
+                                            @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-6 pt-4">
+                                        &nbsp;
+                                    </div>
+                                </div>
+
+                                <div class="w-100 pt-4 d-flex justify-content-center align-items-center">
+                                    <button type="submit" class="btn btn-success">Guardar</button>
+                                </div>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<

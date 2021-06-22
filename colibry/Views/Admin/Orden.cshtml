@@ -1,0 +1,193 @@
+﻿@model  colibry.Models.Orden
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="w-100 d-flex justify-content-between align-items-center py-4">
+            <div class="col-md-8">
+                <h4 class="page-title">Orden</h4>
+                <ol class="breadcrumb m-0  p-0 bg-transparent">
+                    <li class="breadcrumb-item"><a href="#">Ordenes</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Orden</li>
+                </ol>
+            </div>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#detalles" role="tab" aria-controls="dellate" aria-selected="true">Detalles</a>
+                </li>
+            </ul>
+
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-0">
+                    <div class="card-body">
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="detalles" role="tabpanel" aria-labelledby="detalle-tab">
+                                <h4 class="text-muted my-2">Detalles</h4>
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    var fecha = "";
+
+                                    if (Model == null)
+                                    {
+                                        <input type="hidden" name="Id_usuario" value="@Context.Session["Id"]" />
+                                    }
+                                    else {
+                                        var fechaModelo = Model.Fecha.Split(' ')[0].Split('/');
+                                        fecha = fechaModelo[2] + '-' + fechaModelo[1] + '-' + fechaModelo[0];
+                                    }
+
+                                    <div class="form-group row">
+                                        <div class="col-6">
+                                            <label for="example-text-input" class="col-sm-12 col-form-label">Sitio</label>
+                                            <div class="col-sm-12">
+                                                @Html.TextBoxFor(model => model.Sitio, new { @class = "form-control", maxlength = "100", required = "required" })
+                                                @Html.ValidationMessageFor(model => model.Sitio, "", new { @class = "text-danger" })
+
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="example-date-input" class="col-sm-12 col-form-label">Fecha Visita</label>
+                                            <div class="col-sm-12">
+                                                <input type="date" name="Fecha" value="fecha" class="form-control" required />
+                                                @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-6">
+                                            <label for="example-number-input" class="col-sm-12 col-form-label">Coord. Latitud</label>
+                                            <div class="col-sm-12">
+                                                @Html.TextBoxFor(model => model.Latitud, new { @class = "form-control", maxlength = "100", required = "required" })
+                                                @Html.ValidationMessageFor(model => model.Latitud, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="example-number-input" class="col-sm-12 col-form-label">Coord. Longitud</label>
+                                            <div class="col-sm-12">
+
+                                                @Html.TextBoxFor(model => model.Longitud, new { @class = "form-control", maxlength = "100", required = "required" })
+                                                @Html.ValidationMessageFor(model => model.Longitud, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-6">
+                                            <label for="example-number-input" class="col-sm-12 col-form-label">Altura Nivel Mar</label>
+                                            <div class="col-sm-12">
+                                                @Html.TextBoxFor(model => model.Nivel_mar, new { @class = "form-control", Type = "number", maxlength = "100", required = "required" })
+                                                @Html.ValidationMessageFor(model => model.Nivel_mar, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="example-number-input" class="col-sm-12 col-form-label">Altura Torre</label>
+                                            <div class="col-sm-12">
+                                                @Html.TextBoxFor(model => model.Altura, new { @class = "form-control", Type = "number", maxlength = "100", required = "required" })
+                                                @Html.ValidationMessageFor(model => model.Altura, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-6">
+                                            <label for="example-text-input" class="col-sm-12 col-form-label">Dirección</label>
+                                            <div class="col-sm-12">
+                                                @Html.TextBoxFor(model => model.Direccion, new { @class = "form-control", maxlength = "100", required = "required" })
+                                                @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="col-sm-12 col-form-label">Tipo de Torre</label>
+                                            <div class="col-sm-12">
+                                                @Html.DropDownListFor(model => model.Tipo,
+                                                new List<SelectListItem>
+                                                { new SelectListItem{Text="Monopolo", Value="1"},
+                                                    new SelectListItem{Text="Movil", Value="2"},
+                                                     new SelectListItem { Text = "Auto Soportada", Value = "3" },
+                                                     new SelectListItem { Text = "Valla", Value = "4" }},
+                                               "Seleccione...", new { @class = "form-control", maxlength = "100", required = "required" })
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-6">
+                                            <label class="col-sm-12 col-form-label">Forma ingreso</label>
+                                            <div class="col-sm-12">
+                                                @Html.DropDownListFor(model => model.Tipo,
+                                                   new List<SelectListItem>
+                                                   {
+                                                       new SelectListItem{Text="LLave", Value="1"},
+                                                       new SelectListItem{Text="Carta", Value="2"},
+                                                   },
+                                                  "Seleccione...", new { @class = "form-control", maxlength = "100", required = "required" })
+
+                                            </div>
+                                        </div>
+                                        @if (Model == null) {
+                                            <div class="col-6">
+                                                <label class="col-sm-12 col-form-label">Estado</label>
+                                                <div class="col-sm-12">
+                                                    <input type="hidden" name="Estado" value="1" />
+                                                    <span class="form-control">En Creación</span>
+
+                                                </div>
+                                        </div>
+
+                                        }
+                                        else { 
+                                            <div class="col-6">
+                                                <label class="col-sm-12 col-form-label">Estado</label>
+                                                <div class="col-sm-12">
+                                                    @Html.DropDownListFor(model => model.Tipo,
+                                                       new List<SelectListItem>
+                                                       {
+                                                           new SelectListItem{Text="Creado", Value="1"},
+                                                           new SelectListItem{Text="Asignado", Value="2"},
+                                                           new SelectListItem{Text="En Proceso", Value="3"},
+                                                           new SelectListItem{Text="Finalizado", Value="4"},
+                                                           new SelectListItem{Text="Rechazado", Value="5"}
+                                                       },
+                                                      "Seleccione...", new { @class = "form-control", disabled ="disabled"})
+
+                                                </div>
+                                            </div>
+                                        }
+                                        
+
+
+                                    </div>
+                                    <div class="w-100">
+                                        <label class="col-sm-12 col-form-label">Trabajo a realizar</label>
+                                        <div class="col-sm-12">
+                                            @Html.TextAreaFor(model => model.Actividad, new { @class = "form-control", maxlength = "100", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.Actividad, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group d-flex justify-content-center align-items-center mt-5">
+                                        <button type="submit" class="btn btn-success">Guardar</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
